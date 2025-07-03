@@ -1,0 +1,37 @@
+# Lazy.nvim
+lazy-lock.json
+
+# Mason
+mason/
+
+# Plugin data
+plugin/packer_compiled.lua
+.luarc.json
+
+# Swap files
+*.swp
+*.swo
+*~
+
+# Session files
+Session.vim
+.session
+
+# Temporary files
+*.tmp
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# LSP logs
+lsp.log
+vim.log
+
+# Undo files
+.*.un~
