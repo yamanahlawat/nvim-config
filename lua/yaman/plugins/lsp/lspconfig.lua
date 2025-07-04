@@ -52,13 +52,19 @@ return {
     vim.diagnostic.config({
       signs = {
         text = {
-          [vim.diagnostic.severity.ERROR] = "  ",
-          [vim.diagnostic.severity.WARN] = "  ",
-          [vim.diagnostic.severity.HINT] = " ",
-          [vim.diagnostic.severity.INFO] = "  ",
+          [vim.diagnostic.severity.ERROR] = "\u{ea87}",
+          [vim.diagnostic.severity.WARN] = "\u{f071}",
+          [vim.diagnostic.severity.HINT] = "\u{f400}",
+          [vim.diagnostic.severity.INFO] = "\u{f05a}",
         },
       },
-      virtual_text = true,
+      virtual_text = {
+        enabled = true,
+        source = "if_many",
+        spacing = 2,
+        prefix = "●",
+        severity_sort = true,
+      },
       update_in_insert = false,
       underline = true,
       severity_sort = true,
