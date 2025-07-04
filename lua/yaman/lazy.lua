@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- setup all plugins
-require("lazy").setup("yaman.plugins", {
+require("lazy").setup({ {import = "yaman.plugins"}, {import = "yaman.plugins.lsp"} }, {
   checker = {
     enabled = true,
     notify = true,
