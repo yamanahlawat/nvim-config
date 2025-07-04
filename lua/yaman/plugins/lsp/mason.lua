@@ -1,3 +1,4 @@
+-- Updated mason.lua for Mason v2.0
 return {
   "williamboman/mason.nvim",
   dependencies = {
@@ -21,6 +22,7 @@ return {
       },
     })
 
+    -- NEW V2 APPROACH: Mason-LSPConfig automatically enables servers
     mason_lspconfig.setup({
       -- list of servers for mason to install
       ensure_installed = {
@@ -38,6 +40,8 @@ return {
         "marksman",      -- markdown
         "eslint",        -- js/ts linting
       },
+      -- Mason-LSPConfig v2 automatically enables servers by default
+      automatic_enable = true, -- This is the default, but being explicit
     })
 
     mason_tool_installer.setup({
