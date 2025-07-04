@@ -1,4 +1,3 @@
--- Updated mason.lua for Mason v2.0
 return {
   "williamboman/mason.nvim",
   dependencies = {
