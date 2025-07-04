@@ -15,9 +15,9 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("yaman.plugins", {
   checker = {
     enabled = true,
-    notify = false,
+    notify = true,
   },
   change_detection = {
-    notify = false,
+    notify = true,
   },
 })
