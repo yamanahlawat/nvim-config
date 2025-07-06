@@ -4,7 +4,7 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    "DaikyXendo/nvim-material-icon",
+    "nvim-tree/nvim-web-devicons",
     "folke/todo-comments.nvim",
   },
   config = function()

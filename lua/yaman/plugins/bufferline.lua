@@ -1,6 +1,6 @@
 return {
   "akinsho/bufferline.nvim",
-  dependencies = { "DaikyXendo/nvim-material-icon" },
+  dependencies = { "nvim-tree/nvim-web-devicons" },
   version = "*",
   opts = {
     options = {
