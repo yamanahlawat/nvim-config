@@ -40,6 +40,25 @@ return {
           },
         },
       },
+      pickers = {
+        find_files = {
+          -- Ensure find_files specifically shows all files
+          hidden = true,
+          no_ignore = true,
+        },
+        live_grep = {
+          -- Also show hidden/ignored files in grep
+          additional_args = function()
+            return { "--hidden", "--no-ignore" }
+          end,
+        },
+        grep_string = {
+          -- Also show hidden/ignored files in grep string
+          additional_args = function()
+            return { "--hidden", "--no-ignore" }
+          end,
+        },
+      },
     })
 
     telescope.load_extension("fzf")
