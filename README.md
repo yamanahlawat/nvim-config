@@ -60,6 +60,7 @@ A modern, feature-rich Neovim configuration built with Lua and lazy.nvim. Design
 - **Nvim-surround** for text object manipulation
 - **Autopairs** for automatic bracket pairing
 - **Substitute.nvim** for enhanced substitution operations
+- **ToggleTerm** for integrated terminal management
 
 ### ⚡ **Productivity**
 
@@ -157,12 +158,13 @@ nvim
 
 ### Tab Management
 
-| Mode | Key          | Action             |
-| ---- | ------------ | ------------------ |
-| `n`  | `<leader>to` | Open new tab       |
-| `n`  | `<leader>tx` | Close current tab  |
-| `n`  | `<leader>tn` | Go to next tab     |
-| `n`  | `<leader>tp` | Go to previous tab |
+| Mode | Key          | Action                         |
+| ---- | ------------ | ------------------------------ |
+| `n`  | `<leader>to` | Open new tab                   |
+| `n`  | `<leader>tx` | Close current tab              |
+| `n`  | `<leader>tn` | Go to next tab                 |
+| `n`  | `<leader>tp` | Go to previous tab             |
+| `n`  | `<leader>tf` | Open current buffer in new tab |
 
 ### File Explorer (Nvim-tree)
 
@@ -175,13 +177,13 @@ nvim
 
 ### Telescope
 
-| Mode | Key          | Action                   |
-| ---- | ------------ | ------------------------ |
-| `n`  | `<leader>ff` | Find files               |
-| `n`  | `<leader>fr` | Find recent files        |
-| `n`  | `<leader>fs` | Live grep                |
-| `n`  | `<leader>fc` | Find string under cursor |
-| `n`  | `<leader>ft` | Find todos               |
+| Mode | Key          | Action                          |
+| ---- | ------------ | ------------------------------- |
+| `n`  | `<leader>ff` | Fuzzy find files in cwd         |
+| `n`  | `<leader>fr` | Fuzzy find recent files         |
+| `n`  | `<leader>fs` | Find string in cwd              |
+| `n`  | `<leader>fc` | Find string under cursor in cwd |
+| `n`  | `<leader>ft` | Find todos                      |
 
 ### LSP
 
@@ -196,19 +198,46 @@ nvim
 | `n`   | `<leader>rn` | Smart rename              |
 | `n`   | `<leader>D`  | Show buffer diagnostics   |
 | `n`   | `<leader>d`  | Show line diagnostics     |
+| `n`   | `[d`         | Go to previous diagnostic |
+| `n`   | `]d`         | Go to next diagnostic     |
 | `n`   | `K`          | Show hover documentation  |
 | `n`   | `<leader>rs` | Restart LSP               |
 
 ### Git
 
-| Mode | Key          | Action        |
-| ---- | ------------ | ------------- |
-| `n`  | `<leader>lg` | Open LazyGit  |
-| `n`  | `<leader>hs` | Stage hunk    |
-| `n`  | `<leader>hr` | Reset hunk    |
-| `n`  | `<leader>hp` | Preview hunk  |
-| `n`  | `]h`         | Next hunk     |
-| `n`  | `[h`         | Previous hunk |
+| Mode | Key          | Action              |
+| ---- | ------------ | ------------------- |
+| `n`  | `<leader>lg` | Open LazyGit        |
+| `n`  | `<leader>hs` | Stage hunk          |
+| `n`  | `<leader>hr` | Reset hunk          |
+| `v`  | `<leader>hs` | Stage hunk (visual) |
+| `v`  | `<leader>hr` | Reset hunk (visual) |
+| `n`  | `<leader>hS` | Stage buffer        |
+| `n`  | `<leader>hR` | Reset buffer        |
+| `n`  | `<leader>hu` | Undo stage hunk     |
+| `n`  | `<leader>hp` | Preview hunk        |
+| `n`  | `<leader>hb` | Blame line          |
+| `n`  | `<leader>hB` | Toggle line blame   |
+| `n`  | `<leader>hd` | Diff this           |
+| `n`  | `<leader>hD` | Diff this ~         |
+| `n`  | `]h`         | Next hunk           |
+| `n`  | `[h`         | Previous hunk       |
+
+### Terminal (ToggleTerm)
+
+| Mode | Key           | Action                     |
+| ---- | ------------- | -------------------------- |
+| `n`  | `<C-\>`       | Toggle terminal (global)   |
+| `n`  | `<leader>tt`  | Toggle terminal            |
+| `n`  | `<leader>tF`  | Toggle floating terminal   |
+| `n`  | `<leader>th`  | Toggle horizontal terminal |
+| `n`  | `<leader>tv`  | Toggle vertical terminal   |
+| `n`  | `<leader>tb`  | Toggle bottom terminal     |
+| `n`  | `<leader>tr`  | Toggle Node REPL           |
+| `n`  | `<leader>ty`  | Toggle Python REPL         |
+| `t`  | `<Esc>`       | Exit terminal mode         |
+| `t`  | `<C-h/j/k/l>` | Navigate between windows   |
+| `t`  | `<C-w>`       | Window commands            |
 
 ### Session Management
 
@@ -231,7 +260,36 @@ nvim
 | `n`  | `<leader>xw` | Workspace diagnostics |
 | `n`  | `<leader>xd` | Document diagnostics  |
 | `n`  | `<leader>xq` | Quickfix list         |
+| `n`  | `<leader>xl` | Location list         |
 | `n`  | `<leader>xt` | Todo list             |
+
+### Todo Comments
+
+| Mode | Key  | Action                |
+| ---- | ---- | --------------------- |
+| `n`  | `]t` | Next todo comment     |
+| `n`  | `[t` | Previous todo comment |
+
+### Text Manipulation
+
+| Mode | Key  | Action                    |
+| ---- | ---- | ------------------------- |
+| `n`  | `s`  | Substitute with motion    |
+| `n`  | `ss` | Substitute line           |
+| `n`  | `S`  | Substitute to end of line |
+| `v`  | `s`  | Substitute in visual mode |
+
+### Completion (nvim-cmp)
+
+| Mode | Key         | Action                      |
+| ---- | ----------- | --------------------------- |
+| `i`  | `<C-k>`     | Previous suggestion         |
+| `i`  | `<C-j>`     | Next suggestion             |
+| `i`  | `<C-b>`     | Scroll docs up              |
+| `i`  | `<C-f>`     | Scroll docs down            |
+| `i`  | `<C-Space>` | Show completion suggestions |
+| `i`  | `<C-e>`     | Close completion window     |
+| `i`  | `<CR>`      | Confirm completion          |
 
 ## Customization
 
