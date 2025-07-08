@@ -32,6 +32,28 @@ return {
           height = 0.80,
         },
         sorting_strategy = "ascending",
+        -- Exclude common directories you don't want to search
+        file_ignore_patterns = {
+          "%.git/",
+          "node_modules/",
+          "%.venv/",
+          "venv/",
+          "__pycache__/",
+          "%.pytest_cache/",
+          "%.coverage/",
+          "%.ruff_cache/",
+          "build/",
+          "dist/",
+          "target/",
+          "%.next/",
+          "%.nuxt/",
+          "%.cache/",
+          "%.DS_Store",
+          "%.lock",
+          "package%-lock%.json",
+          "yarn%.lock",
+          "Cargo%.lock",
+        },
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
@@ -42,20 +64,21 @@ return {
       },
       pickers = {
         find_files = {
-          -- Ensure find_files specifically shows all files
+          -- Show hidden files like .env, .gitignore, etc.
           hidden = true,
+          -- Don't respect .gitignore to find all hidden files
           no_ignore = true,
         },
         live_grep = {
-          -- Also show hidden/ignored files in grep
+          -- Search in hidden files
           additional_args = function()
-            return { "--hidden", "--no-ignore" }
+            return { "--hidden" }
           end,
         },
         grep_string = {
-          -- Also show hidden/ignored files in grep string
+          -- Search in hidden files
           additional_args = function()
-            return { "--hidden", "--no-ignore" }
+            return { "--hidden" }
           end,
         },
       },
