@@ -49,6 +49,7 @@ return {
         "stylua", -- lua formatter
         "ruff", -- python linter/formatter
         "eslint_d", -- js/ts linter (faster than eslint)
+        "sleek", -- sql formatter
       },
     })
   end,

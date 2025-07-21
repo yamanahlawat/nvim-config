@@ -15,6 +15,7 @@ return {
         markdown = { "prettier" },
         lua = { "stylua" },
         python = { "ruff_format", "ruff_organize_imports" },
+        sql = { "sleek" },
       },
       format_on_save = {
         lsp_fallback = true,
