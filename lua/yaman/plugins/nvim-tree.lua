@@ -14,6 +14,12 @@ return {
         relativenumber = true,
         side = "right",
       },
+      -- Auto-highlight current file
+      update_focused_file = {
+        enable = true,
+        update_root = false,
+        ignore_list = {},
+      },
       -- disable window_picker for
       -- explorer to work well with
       -- window splits
@@ -29,6 +35,20 @@ return {
       },
       git = {
         ignore = false,
+      },
+      renderer = {
+        highlight_git = true,
+        highlight_opened_files = "name", -- or "all" or "icon"
+        highlight_modified = "name",
+        icons = {
+          show = {
+            file = true,
+            folder = true,
+            folder_arrow = true,
+            git = true,
+            modified = true,
+          },
+        },
       },
     })
 
