@@ -11,12 +11,6 @@ return {
     local telescope = require("telescope")
     local actions = require("telescope.actions")
 
-    -- Set up telescope border highlights using horizon theme primary color
-    vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = "#E9436F" })
-    vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = "#E9436F" })
-    vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { fg = "#E9436F" })
-    vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { fg = "#E9436F" })
-
     telescope.setup({
       defaults = {
         path_display = { "smart" },
@@ -61,6 +55,8 @@ return {
             ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
           },
         },
+        -- Let TokyoNight handle the border styling
+        borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
       },
       pickers = {
         find_files = {
