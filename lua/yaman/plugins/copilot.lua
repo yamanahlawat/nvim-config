@@ -29,7 +29,7 @@ return {
         hide_during_completion = true,
         debounce = 75,
         keymap = {
-          accept = "<M-l>", -- Alt+l
+          accept = "<Tab>", -- Alt+l
           accept_word = false,
           accept_line = false,
           next = "<M-]>", -- Alt+]
