@@ -5,10 +5,43 @@ return {
     local lualine = require("lualine")
     local lazy_status = require("lazy.status") -- to configure lazy pending updates count
 
+    local custom_theme = {
+      normal = {
+        a = { fg = "#000000", bg = "#ffffff", gui = "bold" },
+        b = { fg = "#ffffff", bg = "#000000" },
+        c = { fg = "#ffffff", bg = "#000000" },
+      },
+      insert = {
+        a = { fg = "#000000", bg = "#ffffff", gui = "bold" },
+        b = { fg = "#ffffff", bg = "#000000" },
+        c = { fg = "#ffffff", bg = "#000000" },
+      },
+      visual = {
+        a = { fg = "#000000", bg = "#ffffff", gui = "bold" },
+        b = { fg = "#ffffff", bg = "#000000" },
+        c = { fg = "#ffffff", bg = "#000000" },
+      },
+      replace = {
+        a = { fg = "#000000", bg = "#ffffff", gui = "bold" },
+        b = { fg = "#ffffff", bg = "#000000" },
+        c = { fg = "#ffffff", bg = "#000000" },
+      },
+      command = {
+        a = { fg = "#000000", bg = "#ffffff", gui = "bold" },
+        b = { fg = "#ffffff", bg = "#000000" },
+        c = { fg = "#ffffff", bg = "#000000" },
+      },
+      inactive = {
+        a = { fg = "#ffffff", bg = "#000000" },
+        b = { fg = "#ffffff", bg = "#000000" },
+        c = { fg = "#ffffff", bg = "#000000" },
+      },
+    }
+
     -- configure lualine with tokyonight theme
     lualine.setup({
       options = {
-        theme = "tokyonight",
+        theme = custom_theme,
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
         disabled_filetypes = {
