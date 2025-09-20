@@ -76,7 +76,6 @@ return {
           {
             lazy_status.updates,
             cond = lazy_status.has_updates,
-            color = { fg = "#ff9e64" }, -- TokyoNight orange color for updates
           },
           { "encoding" },
           { "fileformat" },
