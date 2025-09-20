@@ -4,8 +4,6 @@ A modern, feature-rich Neovim configuration built with Lua and lazy.nvim. Design
 
 ## Screenshots
 
-<!-- Add screenshots here -->
-
 **Dashboard**
 ![Dashboard Screenshot](screenshots/dashboard.png)
 
@@ -22,7 +20,6 @@ A modern, feature-rich Neovim configuration built with Lua and lazy.nvim. Design
 
 ### 🎨 **UI & Theme**
 
-- **Horizon** colorscheme with dark theme
 - **Lualine** status line with lazy.nvim update indicators
 - **Bufferline** for tab management with slanted separators
 - **Alpha-nvim** dashboard with custom NEOVIM ASCII art
@@ -55,7 +52,7 @@ A modern, feature-rich Neovim configuration built with Lua and lazy.nvim. Design
 - **Nvim-lint** for real-time linting
 - **Format on save** enabled by default
 - **Gitsigns** for Git integration in the gutter
-- **Lazygit** integration for advanced Git operations
+- **diffview** integration for advanced Git operations
 - **Comment.nvim** for smart commenting
 - **Nvim-surround** for text object manipulation
 - **Autopairs** for automatic bracket pairing
@@ -155,7 +152,7 @@ ensure_installed = {
 Edit `lua/yaman/plugins/color-scheme.lua` to use a different theme:
 
 ```lua
--- Replace horizon with your preferred colorscheme
+-- Replace with your preferred colorscheme
 return {
   "your-colorscheme/repo",
   config = function()
@@ -225,10 +222,6 @@ return {
 1. Ensure formatter is installed via Mason
 2. Check conform configuration in `lua/yaman/plugins/formatting.lua`
 3. Manually format: `<leader>mp`
-
-## Contributing
-
-Feel free to fork this configuration and customize it to your needs. If you find bugs or have suggestions for improvements, please open an issue or submit a pull request.
 
 ## License
 
