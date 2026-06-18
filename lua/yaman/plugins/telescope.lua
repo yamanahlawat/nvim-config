@@ -26,7 +26,7 @@ return {
     require("telescope").load_extension("fzf")
 
     local keymap = vim.keymap
-    keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>")
+    keymap.set("n", "<leader>ff", "<cmd>Telescope find_files hidden=true<cr>")
     keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>")
     keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>")
     keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>")

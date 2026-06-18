@@ -67,5 +67,8 @@ return {
     vim.lsp.config("*", {
       capabilities = capabilities,
     })
+
+    -- Configure ty
+    vim.lsp.enable("ty")
   end,
 }

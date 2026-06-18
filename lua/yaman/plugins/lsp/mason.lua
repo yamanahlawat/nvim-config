@@ -15,7 +15,6 @@ return {
         "cssls",
         "tailwindcss",
         "lua_ls",
-        "pyright",
         "ruff",
         "rust_analyzer",
         "jsonls",
@@ -33,6 +32,7 @@ return {
         "ruff",
         "eslint_d",
         "sleek",
+        "taplo",
       },
     })
   end,

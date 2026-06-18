@@ -16,6 +16,7 @@ return {
         lua = { "stylua" },
         python = { "ruff_format", "ruff_organize_imports" },
         sql = { "sleek" },
+        toml = { "taplo" },
       },
       format_on_save = {
         lsp_fallback = true,
