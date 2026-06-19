@@ -1,0 +1,1299 @@
+================================================================================
+=                 N V I M   M O T I O N   M A S T E R Y                        =
+=                                                                              =
+=                 Version 1.0 - Advanced Edition                               =
+=                 By - Yaman Ahlawat (https://github.com/yamanahlawat)         = 
+================================================================================
+
+     Neovim Motion Mastery is designed to teach you the advanced motions,
+     text objects, and macros that will make you significantly faster.
+
+     This tutorial assumes you know basic motions (hjkl, w, b, 0, $) and
+     will take approximately 45-60 minutes to complete.
+
+     IMPORTANT: Do not just read - TYPE the commands! Muscle memory is key.
+
+     Throughout this tutor, practice sections are marked with ~~> arrows.
+     Follow the instructions and practice on the text provided.
+
+     Press ENTER to continue.
+
+
+================================================================================
+                          Lesson 1: WORD NAVIGATION
+================================================================================
+
+   The difference between 'w/b/e' and 'W/B/E' is subtle but important:
+
+   ** w, b, e navigate by words (punctuation matters) **
+   ** W, B, E navigate by WORDS (only whitespace matters) **
+
+   CRITICAL RULES:
+   - w treats UNDERSCORES as part of the word: my_variable is ONE word
+   - w treats HYPHENS as separators: my-variable is THREE words
+   - W treats everything until whitespace as ONE WORD
+
+   Commands:
+     w  - Jump forward to start of next word
+     W  - Jump forward to start of next WORD  
+     b  - Jump backward to start of previous word
+     B  - Jump backward to start of previous WORD
+     e  - Jump forward to end of word
+     E  - Jump forward to end of WORD
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                            Lesson 1.1: BASIC WORD JUMPS
+
+   Below is text for you to practice. Follow these steps:
+
+   1. Put your cursor on the 'T' in 'The' on the next line.
+   2. Press 'w' several times. Notice where it stops.
+   3. Press 'b' to go backward.
+   4. Press 'e' to jump to word ends.
+
+~~> The quick brown fox jumps over the lazy dog near the riverbank.
+
+   Now try with different types of words:
+
+   5. Put cursor on 'w' in word_with_underscores below.
+   6. Press 'w'. Notice it jumps to 'and' - treated as ONE word!
+   7. Press 'b' to go back.
+   8. Press 'W'. Same result - ONE WORD.
+
+~~> word_with_underscores and another_snake_case_variable here
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                         Lesson 1.2: WORDS WITH HYPHENS
+
+   Now let's see how hyphens are different:
+
+   1. Put cursor on 'f' in file-name-with-hyphens below.
+   2. Press 'w'. Notice it stops at each hyphen, treating hyphen-separated parts as separate words. 
+   3. Keep pressing 'w' to see how it moves: 'name' -> 'with' -> 'hyphens' and so on.
+
+~~> file-name-with-hyphens.txt and another--double--hyphenated--word
+
+   5. Press '0' to jump to the start of the line, then move to 'f' in 'file' using w or l. 
+   6. Press 'W' (capital). It jumps all the way to 'and' - treating the entire hyphenated string as ONE WORD!
+
+   CONCLUSION: Use 'w' for precise navigation, 'W' for speed!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                           Lesson 1.3: CAMELCASE WORDS
+
+   Try these with different text styles:
+
+~~> camelCaseWords and PascalCaseWords and SCREAMING_SNAKE_CASE
+~~> some-kebab-case and dot.separated.names and paths/to/files
+
+   Practice:
+   1. Navigate through camelCaseWords with 'w'. How many jumps?
+   2. Now with 'W'. How many jumps? (should be 1 to next word)
+   3. Try paths/to/files. 'w' stops at each slash. 'W' treats as one.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                         Lesson 1.4: WORD ENDS (e, E)
+
+   The 'e' and 'E' commands jump to word ENDS:
+
+~~> Practice text for testing the end-of-word motion commands here.
+
+   1. Put cursor at start of line (press '0').
+   2. Press 'e'. Cursor goes to end of 'Practice'.
+   3. Press 'e' again. Cursor goes to end of 'text'.
+   4. Press 'b' to go back to start of 'text'.
+   5. Press 'E' (capital). Same result for simple words.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                          Lesson 1 SUMMARY
+
+   1. w/b/e work with words: underscores = part of word, hyphens = separator
+   2. W/B/E work with WORDS: only whitespace matters
+   3. Use 'w' when you need precision, 'W' when you want speed
+   4. Master these and you'll rarely need arrow keys!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+================================================================================
+                     Lesson 2: FIND AND TILL MOTIONS
+================================================================================
+
+   These are some of the most powerful motions in Vim!
+
+   ** f{char} finds the next occurrence of {char} on current line **
+   ** t{char} goes till (before) the next occurrence **
+
+   Commands:
+     f{char}  - Find forward to character (lands on it)
+     F{char}  - Find backward to character
+     t{char}  - Till character forward (stops before it)
+     T{char}  - Till character backward
+     ;        - Repeat last f/t/F/T in same direction
+     ,        - Repeat last f/t/F/T in opposite direction
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                          Lesson 2.1: FIND CHARACTER
+
+   Practice finding characters on a line:
+
+~~> function calculateSum(a, b, c) {
+
+   1. Put cursor at the 'f' in 'function'.
+   2. Press 'f(' - cursor jumps to opening parenthesis.
+   3. Press 'f)' - cursor jumps to closing parenthesis.
+   4. Press 'F(' - cursor jumps BACK to opening parenthesis.
+   5. Press 'f)' - jumps forward again.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 2.2: TILL CHARACTER
+
+   The 't' command stops BEFORE the character:
+
+~~> return (a + b + c) * 2;
+
+   1. Put cursor on 'r' in 'return'.
+   2. Press 't(' - cursor stops at space before '('.
+   3. Press 't+' - cursor stops at space before first '+'.
+   4. Press 't;' - cursor stops at space before ';'.
+   5. Press 'T(' - cursor jumps BACK, stopping at 'a' (after opening parenthesis).
+   6. Press 't;' - jumps forward again.
+
+   Why is 't' useful? For editing! Try this:
+
+~~> function calculateSum(a, b, c) {
+
+   CHALLENGE: Change "calculateSum" to "computeTotal"
+   
+   1. Put cursor on 'c' in 'calculate'.
+   2. Press 'ct(' - "change till (" - text deleted, ready to type!
+   3. Type: computeTotal
+   4. Press ESC.
+
+   You just changed the function name in 4 keystrokes + typing!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                      Lesson 2.3: REPEAT WITH ; AND ,
+
+~~> The quick brown fox jumps over the lazy dog on the riverbank.
+
+   1. Put cursor at start of line (press '0').
+   2. Press 'fo' - finds first 'o' (in 'brown').
+   3. Press ';' - finds next 'o' (in 'fox').
+   4. Press ';' - finds next 'o' (in 'over').
+   5. Press ',' - goes back to previous 'o' (in 'fox').
+   6. Press ',' - goes back to previous 'o' (in 'brown').
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       Lesson 2.4: COMBINING WITH DELETE
+
+   You can combine find/till with operators!
+
+~~> const result = (a + b + c) * factor * modifier;
+
+   CHALLENGE: Delete from first '+' to the semicolon
+
+   1. Put cursor anywhere before the first '+'.
+   2. Press 'f+' - find the '+'.
+   3. Press 'df;' - delete find ';' - deletes everything from + to ;
+   
+   Or try this:
+~~> const result = (a + b + c) * factor * modifier;
+
+   1. Put cursor at the end of the line (press '$').
+   2. Press 'T(' - till before '(' (going backward).
+   3. Press 'D' - delete to end of line.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                          Lesson 2 SUMMARY
+
+   1. f/F finds character (lands on it), t/T goes till (stops before)
+   2. ; repeats the motion forward, , repeats backward
+   3. Combine with operators: cf, ct, df, dt for powerful editing
+   4. Stay on the home row - much faster than arrow keys!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+================================================================================
+                        Lesson 3: TEXT OBJECTS
+================================================================================
+
+   This is where Vim truly shines! Text objects let you operate on
+   semantic units like words, sentences, quotes, brackets, etc.
+
+   ** Text objects are the most efficient way to edit! **
+
+   Format:  [operator][i or a][object]
+   
+   Operators: c (change), d (delete), y (yank), v (visual)
+   i or a:    i (inner/inside), a (around/including delimiters)
+   Objects:   w(word), s(sentence), p(paragraph), ", ', `, (, ), [, ], {, }, <, >
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                      Lesson 3.1: WORD TEXT OBJECTS
+
+   Practice on these words:
+
+~~> Change this_word and that_word and another_word here.
+
+   1. Put cursor ANYWHERE in "this_word".
+   2. Press 'ciw' - changes inner word. Type: first
+   3. Press ESC.
+   4. Put cursor ANYWHERE in "that_word".
+   5. Press 'ciw'. Type: second
+   6. Press ESC.
+
+   Notice: You don't need to be at the START of the word!
+
+   Now try 'daw' (delete around word):
+
+~~> Remove this and that and those words from the line.
+
+   1. Cursor anywhere in "this".
+   2. Press 'daw' - deletes word AND the space after it!
+   3. Try it on other words.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                      Lesson 3.2: QUOTE TEXT OBJECTS
+
+   Text objects work inside quotes, brackets, and more:
+
+~~> const message = "Hello, World!";
+~~> const name = 'Alice';
+~~> const greeting = `Welcome to ${name}`;
+
+   Practice on the first line:
+   1. Put cursor ANYWHERE inside "Hello, World!" (between the quotes).
+   2. Press 'ci"' - changes inside quotes. Type: Hi there
+   3. Press ESC.
+
+   Try it on the second line:
+   4. Cursor anywhere in 'Alice'.
+   5. Press 'ci'' - changes inside single quotes. Type: Bob
+   6. Press ESC.
+
+   Now try deleting quotes too:
+   7. Cursor in "Hi there" (from earlier).
+   8. Press 'da"' - deletes text AND the quotes!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                      Lesson 3.3: BRACKET TEXT OBJECTS
+
+~~> function calculate(a, b, c) {
+~~>   return (a + b) * c;
+~~> }
+
+   Practice:
+   1. Put cursor anywhere between ( and ) in "calculate(a, b, c)".
+   2. Press 'ci(' - changes inside parentheses. Type: x, y
+   3. Press ESC.
+   4. Cursor anywhere in "(a + b)".
+   5. Press 'di(' - deletes inside parentheses (keeps parens).
+   6. Type new content.
+
+   Try with braces:
+~~> const obj = { name: "test", value: 42 };
+
+   1. Cursor anywhere between the { and }.
+   2. Press 'ci{'. Type: id: 1
+   3. Press ESC.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                      Lesson 3.4: NESTED TEXT OBJECTS
+
+   Text objects work with nested structures:
+
+~~> const user = {
+~~>   name: "Alice",
+~~>   address: {
+~~>     street: "123 Main St",
+~~>     city: "Springfield"
+~~>   }
+~~> };
+
+   Practice:
+   1. Put cursor anywhere inside the address object (between inner { }).
+   2. Press 'ci{' - changes JUST the inner object content.
+   3. Type: country: "USA"
+   4. Press ESC.
+
+   To change the entire thing:
+   5. Cursor anywhere in the outer object.
+   6. Press 'ci{' repeatedly (or move cursor) to select outer braces.
+
+   Better: Use counts!
+   7. Cursor in "Springfield".
+   8. Press 'c2i{' - change inside 2 levels of braces!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                          Lesson 3 SUMMARY
+
+   1. Text objects work from ANYWHERE in the object - no precise positioning!
+   2. 'i' = inner (excludes delimiters), 'a' = around (includes delimiters)
+   3. Common objects: iw/aw (word), i"/a" (quotes), i(/a(, i{/a{, i[/a[
+   4. Can be combined with any operator: c, d, y, v, =, >, <
+   5. This is THE most efficient way to edit - master these!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+================================================================================
+                        Lesson 4: SEARCH NAVIGATION
+================================================================================
+
+   Searching is one of the fastest ways to navigate in Vim.
+
+   Commands:
+     /pattern   - Search forward
+     ?pattern   - Search backward  
+     n          - Next match (same direction)
+     N          - Previous match (opposite direction)
+     *          - Search word under cursor forward
+     #          - Search word under cursor backward
+     /          - Repeat last search forward
+     ?          - Repeat last search backward
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 4.1: BASIC SEARCH
+
+~~> TODO: Fix the authentication bug in the login system
+~~> NOTE: Remember to update the documentation after this
+~~> TODO: Add error handling for network requests
+~~> FIXME: The cache invalidation logic needs review
+~~> TODO: Write unit tests for the new feature
+
+   Practice:
+   1. Press '/TODO' then ENTER - jumps to first TODO.
+   2. Press 'n' - jumps to next TODO.
+   3. Press 'n' - jumps to next TODO.
+   4. Press 'N' - jumps back to previous TODO.
+   5. Press 'ggn' - gg goes to top, n finds next from top.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 4.2: SEARCH WORD UNDER CURSOR
+
+   The * and # commands search without typing!
+
+~~> function calculateSum(value) {
+~~>   const sum = value + 10;
+~~>   return sum * 2 + value;
+~~> }
+
+   Practice:
+   1. Put cursor on "value" (first occurrence).
+   2. Press '*' - instantly jumps to next "value"!
+   3. Press '*' again - jumps to next "value".
+   4. Press '#' - jumps to previous "value".
+   5. Press '#' again - keeps going backward.
+
+   This is MUCH faster than typing /value!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 4.3: SEARCH AND EDIT
+
+   Combine search with text objects for powerful editing:
+
+~~> const firstName = "John";
+~~> const lastName = "Doe";
+~~> const fullName = firstName + " " + lastName;
+
+   CHALLENGE: Change all occurrences of "Name" to "Person"
+
+   Method 1 - Manual:
+   1. Press '/Name' then ENTER.
+   2. Press 'cw' - change word. Type: Person
+   3. Press ESC.
+   4. Press 'n' - next match.
+   5. Press '.' - repeat the change!
+   6. Press 'n' then '.' for each remaining match.
+
+   Method 2 - Substitute:
+   7. Type ':s/Name/Person/g' - substitute on current line.
+   8. Or ':5,7s/Name/Person/g' - lines 5-7.
+   9. Or ':%s/Name/Person/g' - entire file!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 4.4: ADVANCED SEARCH TRICKS
+
+   Use 'cgn' for the best search-and-replace workflow!
+
+~~> const API_KEY = "secret123";
+~~> const API_ENDPOINT = "https://api.example.com";
+~~> const API_VERSION = "v1";
+
+   CHALLENGE: Change "API" to "SERVICE" efficiently
+
+   1. Press '/API' then ENTER - finds first occurrence.
+   2. Press 'cgn' - changes next occurrence. Type: SERVICE
+   3. Press ESC.
+   4. Press '.' - repeats on next match (so fast!).
+   5. Press '.' - repeats again.
+   6. Press '.' - repeats again.
+
+   This is faster than :s/API/SERVICE/g for visual confirmation!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                          Lesson 4 SUMMARY
+
+   1. / searches forward, ? searches backward
+   2. n goes to next match, N goes to previous
+   3. * and # search word under cursor - super fast!
+   4. Combine search with operators: /pattern then cgn or d or y
+   5. Use :s/old/new/g for bulk replacements
+   6. cgn is the modern way - search, cgn, ., ., .
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+================================================================================
+                      Lesson 5: VERTICAL NAVIGATION
+================================================================================
+
+   Navigate vertically through your file with speed!
+
+   Commands:
+     gg         - Go to first line
+     G          - Go to last line
+     :{num}     - Go to line number (e.g., :42)
+     {          - Jump to previous blank line (paragraph)
+     }          - Jump to next blank line (paragraph)
+     Ctrl-d     - Scroll down half page
+     Ctrl-u     - Scroll up half page
+     Ctrl-f     - Scroll down full page (forward)
+     Ctrl-b     - Scroll back full page
+     H          - Move to top of screen (High)
+     M          - Move to middle of screen (Middle)
+     L          - Move to bottom of screen (Low)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 5.1: LINE JUMPS
+
+~~> Line 1: Starting point for vertical navigation practice
+~~> Line 2: Second line here
+~~> Line 3: Third line content
+~~> Line 4: Middle section starts
+~~> Line 5: More lines here
+~~> Line 6: Continuing downward
+~~> Line 7: Keep going
+~~> Line 8: Almost at the end
+~~> Line 9: Second to last
+~~> Line 10: The final line
+
+   Practice:
+   1. Press 'gg' - jumps to top of file (Line 1).
+   2. Press 'G' - jumps to bottom of file (last line).
+   3. Press 'gg' - back to top.
+   4. Type ':5' then ENTER - jumps to Line 5.
+   5. Type '8G' - jumps to line 8 (alternative syntax).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 5.2: PARAGRAPH JUMPS
+
+   Paragraphs are separated by blank lines. Use { and } to jump!
+
+~~> Paragraph 1: This is the first paragraph.
+~~> It has multiple lines.
+~~> All connected without blank lines.
+
+~~> Paragraph 2: This is the second paragraph.
+~~> It also has several lines.
+~~> But separated by blank line above.
+
+~~> Paragraph 3: This is the third paragraph.
+~~> More content here.
+
+   Practice:
+   1. Put cursor in Paragraph 1.
+   2. Press '}' - jumps to blank line after paragraph.
+   3. Press '}' - jumps to next blank line.
+   4. Press '{' - jumps back up to previous blank line.
+   5. Press '{' - jumps back further.
+
+   Use case: Great for navigating between functions, sections, etc.!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 5.3: SCREEN POSITIONING
+
+   Sometimes you want to position text relative to your screen:
+
+   Commands after learning these:
+   1. Press 'zz' - current line moves to center of screen.
+   2. Press 'zt' - current line moves to top of screen.
+   3. Press 'zb' - current line moves to bottom of screen.
+
+   These don't move the cursor, just the view!
+
+   Try also:
+   - Press 'H' - cursor jumps to top of visible screen.
+   - Press 'M' - cursor jumps to middle of visible screen.
+   - Press 'L' - cursor jumps to bottom of visible screen.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                          Lesson 5 SUMMARY
+
+   1. gg/G for top/bottom of file
+   2. :{num} or {num}G to jump to specific line
+   3. { and } for paragraph/block navigation
+   4. Ctrl-d/u for half-page scrolling
+   5. zz/zt/zb to reposition screen
+   6. H/M/L to move cursor within visible screen
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+================================================================================
+                      Lesson 6: MARKS AND JUMP LIST
+================================================================================
+
+   Marks are bookmarks for positions in your file!
+   
+   ** Marks are one of the most underused but powerful features! **
+
+   Commands:
+     m{a-z}     - Set local mark (lowercase = this file only)
+     m{A-Z}     - Set global mark (uppercase = across files)
+     '{a-z}     - Jump to mark (first non-blank of line)
+     `{a-z}     - Jump to exact mark position (including column)
+     ''         - Jump to position before last jump (line)
+     ``         - Jump to exact position before last jump
+     Ctrl-o     - Go backward in jump list
+     Ctrl-i     - Go forward in jump list
+     :marks     - View all marks
+     :jumps     - View jump list
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 6.1: SETTING MARKS
+
+~~> Section A: First important section is here
+~~> With some content that we will want to return to.
+~~> 
+~~> Some filler content to create distance.
+~~> More lines in between sections.
+~~> Even more lines here.
+~~>
+~~> Section B: Second important section is here
+~~> With different content we also want to bookmark.
+~~>
+~~> More filler content between sections.
+~~> Additional lines for practice.
+~~>
+~~> Section C: Third important section is here
+~~> This is the final bookmarked section.
+
+   Practice:
+   1. Put cursor on "Section A" line.
+   2. Press 'ma' - sets mark 'a' at this position.
+   3. Scroll down to "Section B" line.
+   4. Press 'mb' - sets mark 'b'.
+   5. Scroll to "Section C" line.
+   6. Press 'mc' - sets mark 'c'.
+
+   Now jump between them:
+   7. Press "'a" - jumps to Section A!
+   8. Press "'b" - jumps to Section B!
+   9. Press "'c" - jumps to Section C!
+   10. Press "'a" - back to Section A!
+
+   You can set up to 26 marks per file (a-z)!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 6.2: JUMP LIST
+
+   Every time you make a "jump", Vim remembers it!
+
+   What counts as a jump?
+   - Searching with /, ?, *, #
+   - Using gg, G, or :{num}
+   - Jumping to marks
+   - Many other navigation commands
+
+   Practice:
+   1. Make several jumps (gg, G, /TODO, etc.).
+   2. Type ':jumps' to see your history.
+   3. Press 'Ctrl-o' - goes back in jump list.
+   4. Press 'Ctrl-o' again - goes back further.
+   5. Press 'Ctrl-i' (or Tab) - goes forward in jump list.
+
+   Use case: Made an edit, jumped around, want to go back? Ctrl-o!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 6.3: SPECIAL MARKS
+
+   Vim sets some marks automatically:
+
+   '.  - Jump to position of last change
+   '"  - Jump to position when last exited file
+   '[  - Jump to start of last changed/yanked text
+   ']  - Jump to end of last changed/yanked text
+   '<  - Jump to start of last visual selection
+   '>  - Jump to end of last visual selection
+
+   Practice:
+   1. Make a change somewhere (insert text and ESC).
+   2. Move cursor elsewhere.
+   3. Press '`.' - jumps back to where you just edited!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                          Lesson 6 SUMMARY
+
+   1. m{a-z} sets marks within file, m{A-Z} sets global marks
+   2. '{mark} jumps to mark (line), `{mark} jumps to exact position
+   3. Ctrl-o/Ctrl-i navigate through jump history
+   4. Marks persist between sessions!
+   5. Use marks for frequently accessed locations in your code
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+================================================================================
+                        Lesson 7: RECORDING MACROS
+================================================================================
+
+   Macros let you record and replay a sequence of commands!
+   
+   ** This is THE way to automate repetitive editing tasks! **
+
+   Commands:
+     q{a-z}     - Start recording macro into register {a-z}
+     q          - Stop recording
+     @{a-z}     - Play macro from register {a-z}
+     @@         - Repeat last played macro
+     {count}@{a-z} - Play macro {count} times
+     :reg       - View all registers (including macros)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 7.1: YOUR FIRST MACRO
+
+~~> [ ] Task 1: Review the documentation
+~~> [ ] Task 2: Write unit tests
+~~> [ ] Task 3: Update the README
+~~> [ ] Task 4: Refactor the code
+~~> [ ] Task 5: Submit pull request
+
+   CHALLENGE: Mark all tasks as complete (change [ ] to [x])
+
+   Let's record a macro:
+   1. Put cursor on the '[' of "[ ] Task 1".
+   2. Press 'qa' - start recording into register 'a'.
+   3. Press 'f ' - find the space between brackets.
+   4. Press 'rx' - replace with 'x'.
+   5. Press 'j' - move down to next line.
+   6. Press '0' - go to start of line.
+   7. Press 'q' - stop recording.
+
+   Now play it back:
+   8. Press '@a' - replays macro on Task 2!
+   9. Press '@@' - replays again on Task 3!
+   10. Type '2@@' - replays 2 more times (Tasks 4 and 5)!
+
+   You just automated 5 tasks with one recording!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 7.2: EDITING MACROS
+
+~~> Line 1 needs work
+~~> Line 2 needs work
+~~> Line 3 needs work
+~~> Line 4 needs work
+~~> Line 5 needs work
+
+   Let's say you want to change "needs work" to "is complete":
+
+   1. Cursor on "Line 1".
+   2. Press 'qb' - record into register 'b'.
+   3. Press '/needs' then ENTER.
+   4. Press 'cw' - change word.
+   5. Type: is
+   6. Press ESC.
+   7. Press 'w' - move to "work".
+   8. Press 'cw' - change word.
+   9. Type: complete
+   10. Press ESC.
+   11. Press 'j0' - next line, start.
+   12. Press 'q' - stop recording.
+
+   Play it back:
+   13. Press '4@b' - applies to remaining 4 lines!
+
+   If you made a mistake, just record again with 'qb'!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 7.3: ADVANCED MACRO TRICKS
+
+~~> // Function 1
+~~> function processData() {
+~~>   return result;
+~~> }
+~~>
+~~> // Function 2  
+~~> function calculateSum() {
+~~>   return total;
+~~> }
+~~>
+~~> // Function 3
+~~> function validateInput() {
+~~>   return isValid;
+~~> }
+
+   CHALLENGE: Add console.log before each return statement
+
+   Design your macro (don't record yet, just plan):
+   1. Search for 'return': /return
+   2. Go to start of line: 0
+   3. Open line above: O
+   4. Type: console.log("Before return");
+   5. ESC
+   6. Move down and repeat
+
+   Now try recording and applying it!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 7.4: MACRO PATTERNS
+
+   Common macro patterns:
+
+   1. Process list items:
+      - Record action on first item
+      - Move to next item (j0 or search)
+      - Apply to rest with count: 10@@
+
+   2. Format data:
+      - Record: add quotes, commas, etc.
+      - Apply to all lines
+
+   3. Refactor code:
+      - Record: rename, add imports, change syntax
+      - Apply across file
+
+   Practice area (format as Python list):
+
+~~> apples
+~~> bananas
+~~> oranges
+~~> grapes
+
+   Goal: ["apples", "bananas", "oranges", "grapes"]
+
+   Your macro might be:
+   1. I" (insert quote at start)
+   2. ESC
+   3. A", (append quote and comma)
+   4. ESC
+   5. j0 (next line)
+   
+   Try it!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                          Lesson 7 SUMMARY
+
+   1. q{a-z} starts recording, q stops
+   2. @{a-z} plays macro, @@ repeats last
+   3. {count}@{a-z} plays macro multiple times
+   4. Plan your macro before recording
+   5. Test on first item, then apply to rest
+   6. Macros work with all motions and text objects!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+================================================================================
+                    Lesson 8: COMBINING EVERYTHING
+================================================================================
+
+   Now let's combine operators, motions, and text objects!
+
+   ** The true power of Vim is in combining these elements! **
+
+   Grammar: [count][operator][count][motion/text-object]
+
+   Operators:
+     c  - change (delete and insert)
+     d  - delete
+     y  - yank (copy)
+     v  - visual select
+     >  - indent right
+     <  - indent left
+     =  - auto-indent
+     gu - lowercase
+     gU - uppercase
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 8.1: OPERATOR COMBINATIONS
+
+~~> def process_data(input_list, filter_func, transform_func):
+~~>     """Process data with filtering and transformation."""
+~~>     filtered = [item for item in input_list if filter_func(item)]
+~~>     transformed = [transform_func(item) for item in filtered]
+~~>     return transformed
+
+   Practice these combinations:
+
+   1. Put cursor on "process_data".
+   2. Press 'gUiw' - uppercase inner word → PROCESS_DATA
+   3. Undo with 'u'.
+   4. Press 'guiw' - lowercase inner word → process_data
+
+   5. Cursor on "input_list" in parameters.
+   6. Press 'ciw' - change inner word. Type: data
+   7. Press ESC.
+
+   8. Cursor anywhere in the function.
+   9. Press '=i{' - auto-indent inside braces (won't work here but try in code!)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 8.2: DELETE COMBINATIONS
+
+~~> const firstName = "John", lastName = "Doe", age = 30;
+
+   Practice:
+   1. Cursor on "firstName".
+   2. Press 'd2w' - delete 2 words (firstName =).
+   3. Undo with 'u'.
+   4. Press 'dt,' - delete till comma.
+   5. Undo with 'u'.
+   6. Press 'df,' - delete find comma (includes comma).
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 8.3: VISUAL MODE COMBINATIONS
+
+~~> function calculateSum(a, b, c) {
+~~>   const result = a + b + c;
+~~>   const doubled = result * 2;
+~~>   return doubled;
+~~> }
+
+   Practice visual selections:
+   1. Cursor on "function".
+   2. Press 'vf{' - visual select to opening brace.
+   3. Press ESC to exit visual.
+   4. Cursor on "a" in parameters.
+   5. Press 'vi(' - visual inside parentheses.
+   6. Press ESC.
+   7. Press 'V' - visual line mode.
+   8. Press 'j' - extend selection down.
+   9. Press '>' - indent selected lines.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 8.4: THE DOT COMMAND
+
+   The '.' command repeats your last change!
+
+~~> Remove "old_" prefix from: old_variable, old_function, old_constant
+
+   Efficient way:
+   1. Cursor on first "old_".
+   2. Press 'df_' - delete find underscore.
+   3. Move to next "old_" (search or jump).
+   4. Press '.' - repeats the deletion!
+   5. Move to next "old_".
+   6. Press '.' - repeats again!
+
+   Try it on:
+~~> old_name, old_value, old_data, old_result
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Lesson 8.5: COMPLEX COMBINATIONS
+
+~~> user = { name: "Alice", email: "alice@example.com" }
+
+   CHALLENGE 1: Change "Alice" to "Bob" - how many keystrokes?
+   Answer: /Alice then ci"Bob then ESC (or fAci"Bob ESC)
+
+   CHALLENGE 2: Delete everything after "name" field
+   Answer: Cursor on name, f:dt}
+
+~~> array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+   CHALLENGE 3: Change to [1, 2, 3]
+   Answer: f3l then D (or f3;D)
+
+~~> const result = calculateSum(getValue(), getData(), getResult());
+
+   CHALLENGE 4: Change function name to "computeTotal"
+   Answer: /calculate then cw (or fcci{) then computeTotal
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                          Lesson 8 SUMMARY
+
+   1. Combine operator + motion: dw, c$, yiw, vi(, etc.
+   2. Add counts: 2dw, 3cw, 5yy
+   3. Use text objects for semantic editing: ci", da), yi{
+   4. The dot '.' repeats last change - incredibly powerful!
+   5. Think in Vim grammar: [count][operator][motion]
+   6. Practice until it becomes muscle memory!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+================================================================================
+                        Lesson 9: SPEED CHALLENGES
+================================================================================
+
+   Let's test what you've learned! Try to complete each challenge
+   in the MINIMUM number of keystrokes.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Challenge 9.1: SNAKE TO CAMEL
+
+   Change: this_variable_name
+   To:     thisVariableName
+
+~~> this_variable_name
+
+   Hints:
+   - Could use 'f_x' to delete underscores
+   - Could use 'l~' to capitalize after deleting underscore
+   - Or use substitute: :s/_\(.\)/\U\1/g
+   - Or macro!
+
+   Your best solution: _____ keystrokes
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Challenge 9.2: SWAP SEPARATORS
+
+   Change: file-name-with-dashes.txt
+   To:     file_name_with_dashes.txt
+
+~~> file-name-with-dashes.txt
+
+   Hints:
+   - Could use 'f-' then 'r_' then ';' to repeat
+   - Or macro: qa f-r_ q then @@
+   - Or substitute: :%s/-/_/g
+   
+   Your best solution: _____ keystrokes
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Challenge 9.3: SWAP TWO WORDS
+
+   Change: first comes before second
+   To:     second comes before first
+
+~~> first comes before second
+
+   Hints:
+   - Could use visual mode and paste
+   - Could use delete and paste: daw, move, daw, P, move, P
+   - Think about registers!
+
+   Your best solution: _____ keystrokes
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Challenge 9.4: DUPLICATE LINE
+
+   Duplicate this line 5 times:
+
+~~> Duplicate this entire line here
+
+   Hints:
+   - 'yy' or 'Y' yanks line
+   - 'p' pastes below
+   - Can use count: '5p'
+   - Or 'yyp' then '4.'
+
+   Your best solution: _____ keystrokes (should be < 5!)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Challenge 9.5: CLEAR PARENTHESES
+
+   Change: (keep this text)
+   To:     ()
+
+~~> (keep this text)
+
+   Hints:
+   - Text objects make this trivial
+   - 'di(' - 3 keystrokes!
+
+   Your best solution: _____ keystrokes (should be 3!)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Challenge 9.6: SURROUND WITH QUOTES
+
+   Change: hello world
+   To:     "hello world"
+
+~~> hello world
+
+   Hints:
+   - Could use 'I"' then 'A"'
+   - Or visual mode: 'vw' then surround (if you have surround plugin)
+   - Or 'I"' ESC 'A"' ESC
+
+   Your best solution: _____ keystrokes
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        Challenge 9.7: DELETE FUNCTION BODY
+
+~~> function test() {
+~~>   const x = 1;
+~~>   const y = 2;
+~~>   return x + y;
+~~> }
+
+   Goal: Keep function signature, delete body
+
+~~> function test() {
+~~> }
+
+   Hints:
+   - Could use 'di{' to delete inside braces
+   - Cursor anywhere in function
+   
+   Your best solution: _____ keystrokes
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                        CHALLENGE ANSWER KEY
+
+   9.1: Many solutions! Macro or substitute are efficient
+   9.2: About 7-10 keystrokes with f-r_;; or macro
+   9.3: About 10-15 keystrokes depending on method
+   9.4: 3 keystrokes: 'Yp'
+   9.5: 3 keystrokes: 'di('
+   9.6: About 5 keystrokes: 'I"' ESC 'A"' ESC
+   9.7: 3 keystrokes: 'di{'
+
+   How did you do?
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+================================================================================
+                        Lesson 10: YOUR NEOVIM CONFIG
+================================================================================
+
+   Based on your config, you have these custom mappings:
+
+   LEADER KEY: Space
+
+   File Navigation:
+     <space>ff      Find files (Telescope)
+     <space>fr      Recent files
+     <space>fs      Live grep search
+     <space>fc      Find word under cursor
+     <space>ee      Toggle nvim-tree
+     <space>ef      Find file in tree
+
+   Window Management:
+     <space>sv      Split vertically
+     <space>sh      Split horizontally
+     <space>se      Make splits equal
+     <space>sx      Close split
+     <space>sm      Maximize/minimize split
+
+   Tab Management:
+     <space>to      Open new tab
+     <space>tx      Close tab
+     <space>tn      Next tab
+     <space>tp      Previous tab
+
+   LSP:
+     gd             Go to definition
+     gD             Go to declaration
+     gr             References (Telescope)
+     gi             Go to implementation
+     K              Hover docs
+     <space>ca      Code action
+     <space>rn      Rename
+     [d / ]d        Previous/next diagnostic
+
+   Git:
+     ]h / [h        Next/prev hunk
+     <space>hs      Stage hunk
+     <space>hr      Reset hunk
+     <space>hp      Preview hunk
+     <space>hb      Blame line
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        WORKFLOW EXAMPLE
+
+   Efficient editing workflow with your config:
+
+   1. <space>ff → type filename → Enter (open file)
+   2. Use motions to navigate: w, f, t, search
+   3. gd → jump to definition
+   4. Ctrl-o → jump back
+   5. <space>fs → search across project
+   6. ciw / ci" / ci( → edit with text objects
+   7. qa...q → record macro for repetitive edits
+   8. @a → apply macro
+   9. <space>ca → apply code action (LSP)
+   10. <space>mp → format file
+
+   You now have ALL the tools for efficient editing!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+================================================================================
+                        ADVANCED TIPS & TRICKS
+================================================================================
+
+1. VISUAL BLOCK MODE (Ctrl-v)
+   - Select rectangular column of text
+   - 'I' to insert at start of each line
+   - 'A' to append at end of each line
+   - 'r' to replace all selected characters
+   - Great for adding comments, indenting, aligning
+
+2. INCREMENT/DECREMENT (Ctrl-a / Ctrl-x)
+   - Cursor on number
+   - Ctrl-a: increment
+   - Ctrl-x: decrement
+   - Visual block + g Ctrl-a: sequential increment!
+
+3. GLOBAL COMMANDS
+   - :g/pattern/d - delete all lines matching
+   - :g!/pattern/d - delete lines NOT matching
+   - :g/TODO/t$ - copy TODOs to end
+   - :g/DEBUG/normal I// - comment out DEBUG lines
+
+4. CHANGE LIST (g; / g,)
+   - g; jumps to previous change location
+   - g, jumps to next change location
+   - Like Ctrl-o but for edits, not jumps!
+
+5. COMMAND-LINE WINDOW (q: / q/)
+   - q: opens command history
+   - q/ opens search history
+   - Edit and re-execute commands
+   - Very useful for complex substitutions!
+
+6. EXPRESSION REGISTER (Ctrl-r =)
+   - In insert mode: Ctrl-r =
+   - Type math expression: 5*9
+   - Press Enter → inserts result!
+
+7. REPEAT FIND ON MULTIPLE LINES
+   - ; and , work only on current line
+   - Use 'n' with search for multi-line repeat
+
+8. RELATIVE LINE NUMBERS (you have this!)
+   - See "5" above current line?
+   - Just type '5k' to go up 5 lines
+   - Or '10j' to go down 10
+   - Much faster than counting!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+================================================================================
+                        PRACTICE REGIMEN
+================================================================================
+
+   Don't just read once and forget! Build muscle memory:
+
+   WEEK 1: Word Navigation
+   - Focus on w, W, b, B, e, E, f, t
+   - Goal: Navigate without thinking
+   - Daily drill: 10 minutes of purposeful practice
+
+   WEEK 2: Text Objects
+   - Focus on ci", da), vi(, ya}
+   - Goal: Edit without visual mode
+   - Daily drill: Use text objects for every edit
+
+   WEEK 3: Search & Marks
+   - Focus on /, *, n, marks (m, ')
+   - Goal: Navigate large files instantly
+   - Daily drill: Set marks for important functions
+
+   WEEK 4: Macros
+   - Focus on recording and applying macros
+   - Goal: Automate repetitive tasks
+   - Daily drill: Record at least one macro per day
+
+   EXERCISES:
+   - "No-Arrow Monday": Don't use arrow keys all day
+   - "Text-Object Tuesday": Use ci"/da) for everything
+   - "Macro Thursday": Record 3+ macros during work
+   - "Search Friday": Use / and * instead of scrolling
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+================================================================================
+                        ADDITIONAL RESOURCES
+================================================================================
+
+   Built-in help:
+   - :help motion.txt
+   - :help text-objects
+   - :help recording
+   - :help pattern
+   - :help usr_03.txt (moving around)
+   - :help usr_04.txt (making small changes)
+
+   Practice websites:
+   - vimgolf.com (code golf challenges)
+   - openvim.com (interactive tutorial)
+   - vim-adventures.com (game-based learning)
+
+   Your config files:
+   - lua/yaman/core/keymaps.lua (your custom keys)
+   - lua/yaman/plugins/*.lua (plugin configs)
+
+   Best resource: USE THESE DAILY!
+   - The more you use them, the more natural they become
+   - Slow is smooth, smooth is fast
+   - Think in motions, not key presses
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+================================================================================
+                        FINAL CHALLENGE
+================================================================================
+
+   Open one of your real project files. Edit it using ONLY:
+
+   ✓ Motions (w, f, t, {, }, /, *, etc.)
+   ✓ Text objects (ciw, da", yi{, etc.)
+   ✓ Operators (c, d, y, v, =, <, >)
+   ✓ Macros (for repetitive tasks)
+   ✓ Your leader key mappings
+   ✓ NO arrow keys
+   ✓ NO mouse
+
+   Time yourself. Then try again tomorrow. You'll be faster!
+
+   The goal isn't speed at first - it's building the habit of thinking
+   in Vim motions. Speed comes naturally with practice.
+
+   Key mindset shift:
+   - Don't think: "Move cursor to position, then select, then delete"
+   - Think: "Delete inside quotes" → Your fingers type ci"
+
+   This is the Vim way. Master it, and you'll edit at the speed of thought!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+================================================================================
+=                                                                              =
+=                     CONGRATULATIONS!                                         =
+=                                                                              =
+=     You've completed the Neovim Motion Mastery tutorial!                    =
+=                                                                              =
+=     Remember: Mastery comes from practice, not just reading.                =
+=     Use these motions daily, and they'll become second nature.              =
+=                                                                              =
+=     Now go forth and edit at the speed of thought! 🚀                       =
+=                                                                              =
+================================================================================
+
+
+                    This tutorial was created with ❤️
+              For intermediate Vim users ready to level up
+                    
+              Questions or feedback? Practice more! :)
