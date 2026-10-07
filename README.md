@@ -52,7 +52,7 @@ A modern, feature-rich Neovim configuration built with Lua and lazy.nvim. Design
 - **Nvim-lint** for real-time linting
 - **Format on save** enabled by default
 - **Gitsigns** for Git integration in the gutter
-- **diffview** integration for advanced Git operations
+- **Lazygit** integration for advanced Git operations
 - **Comment.nvim** for smart commenting
 - **Nvim-surround** for text object manipulation
 - **Autopairs** for automatic bracket pairing
