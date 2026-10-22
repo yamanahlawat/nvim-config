@@ -43,7 +43,6 @@ return {
       }),
       -- sources for autocompletion (order matters for priority)
       sources = cmp.config.sources({
-        { name = "copilot" }, -- copilot suggestions (highest priority)
         { name = "nvim_lsp" }, -- lsp
         { name = "luasnip" }, -- snippets
         { name = "buffer" }, -- text within current buffer
@@ -55,9 +54,6 @@ return {
         format = lspkind.cmp_format({
           maxwidth = 50,
           ellipsis_char = "...",
-          symbol_map = {
-            Copilot = "",
-          },
         }),
       },
     })

@@ -317,7 +317,7 @@
    Practice:
    1. Put cursor anywhere inside the address object (between inner { }).
    2. Press 'ci{' - changes JUST the inner object content.
-   3. Type: country: "USA"
+   3. Type: country: "India"
    4. Press ESC.
 
    To change the entire thing:
